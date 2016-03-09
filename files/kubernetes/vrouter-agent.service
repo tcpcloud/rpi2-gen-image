@@ -1,0 +1,10 @@
+[Unit]
+Description=Vrouter agent
+
+[Service]
+EnvironmentFile=/etc/default/vrouter-agent
+ExecStart=/usr/local/bin/opencontrail-kubelet-plugin "$DAEMON_ARGS"
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
