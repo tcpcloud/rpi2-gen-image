@@ -15,7 +15,7 @@
 # Copyright (C) 2015 Luca Falavigna <dktrkranz@debian.org>
 ########################################################################
 
-source ./functions.sh
+. ./functions.sh
 
 set -e
 set -x

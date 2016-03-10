@@ -14,6 +14,7 @@ chroot_exec pip install opencontrail-kubelet
 chroot_exec ln -s /usr/local/bin/opencontrail-kubelet-plugin /usr/libexec/kubernetes/kubelet-plugins/net/exec/opencontrail/opencontrail
 chroot_exec ln -s /lib/ld-linux-armhf.so.3 /lib/ld-linux.so.3
 
+# /usr/bin/docker daemon -H fd:// --storage-driver=overlay -D
 # chroot_exec "service docker start; docker pull tcpcloud/pause_armhf:2.0; docker tag tcpcloud/pause_armhf:2.0 gcr.io/google_containers/pause:2.0"
 
 for service in kubelet kube-proxy vrouter-agent; do

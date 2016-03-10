@@ -4,7 +4,7 @@
 
 . ./functions.sh
 
-chroot_exec apt-get install -qq -y klibmodules linux-headers-${KERNEL} bridge-utils ethtool python-pip
+chroot_exec apt-get install -qq -y linux-headers-${KERNEL} bridge-utils ethtool python-pip
 chroot_exec apt-get install -qq -y contrail-vrouter-agent || true
 
 wget -O $R/lib/modules/${KERNEL}/vrouter.ko http://apt.tcpcloud.eu/tmp/vrouter.ko
