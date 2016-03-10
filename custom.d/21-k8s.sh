@@ -11,11 +11,13 @@ wget -O $R/usr/local/bin/kubelet http://apt.tcpcloud.eu/tmp/k8s_binaries_arm/v1.
 wget -O $R/usr/local/bin/kube-proxy http://apt.tcpcloud.eu/tmp/k8s_binaries_arm/v1.1.1/kube-proxy
 
 chroot_exec pip install opencontrail-kubelet
-chroot_exec ln -s /usr/local/bin/opencontrail-kubelet-plugin /usr/libexec/kubernetes/kubelet-plugins/net/exec/opencontrail/opencontrail
+#chroot_exec ln -s /usr/local/bin/opencontrail-kubelet-plugin /usr/libexec/kubernetes/kubelet-plugins/net/exec/opencontrail/opencontrail
 chroot_exec ln -s /lib/ld-linux-armhf.so.3 /lib/ld-linux.so.3
 
 # /usr/bin/docker daemon -H fd:// --storage-driver=overlay -D
-# chroot_exec "service docker start; docker pull tcpcloud/pause_armhf:2.0; docker tag tcpcloud/pause_armhf:2.0 gcr.io/google_containers/pause:2.0"
+#chroot_exec "service docker start"
+#chroot_exec "docker pull tcpcloud/pause_armhf:2.0"
+#chroot_exec "docker tag tcpcloud/pause_armhf:2.0 gcr.io/google_containers/pause:2.0"
 
 for service in kubelet kube-proxy vrouter-agent; do
     install -o root -g root -m 644 files/kubernetes/${service}.service $R/etc/systemd/system/${service}.service

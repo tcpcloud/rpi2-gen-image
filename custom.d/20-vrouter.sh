@@ -4,11 +4,15 @@
 
 . ./functions.sh
 
-chroot_exec apt-get install -qq -y linux-headers-${KERNEL} bridge-utils ethtool python-pip
+if [ "$BUILD_KERNEL" = false ]; then
+    chroot_exec apt-get install -qq -y linux-headers-${KERNEL}
+fi
+
+chroot_exec apt-get install -qq -y bridge-utils ethtool python-pip
 chroot_exec apt-get install -qq -y contrail-vrouter-agent || true
 
 wget -O $R/lib/modules/${KERNEL}/vrouter.ko http://apt.tcpcloud.eu/tmp/vrouter.ko
-chroot_exec depmod -a
+#chroot_exec depmod -a
 
 cat << EOF >> $R/etc/network/interfaces.d/vhost0.conf
 auto vhost0

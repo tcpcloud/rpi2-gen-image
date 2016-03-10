@@ -16,4 +16,7 @@ export K8S_API_SERVER="https://10.0.175.17:443"
 export K8S_CLUSTER_DNS="10.254.0.10"
 export K8S_CLUSTER_DOMAIN="cluster.local"
 
+export BUILD_KERNEL=true
+export KERNEL_HEADERS=true
+
 ./rpi2-gen-image.sh
