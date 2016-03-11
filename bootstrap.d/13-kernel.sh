@@ -7,7 +7,7 @@
 # Fetch and build latest raspberry kernel
 if [ "$BUILD_KERNEL" = true ] ; then
   # Fetch current raspberrypi kernel sources
-  git -C $R/tmp clone --depth=1 --branch=${KERNEL_BRANCH} https://github.com/raspberrypi/linux
+  git -C $R/tmp clone --depth=1 https://github.com/raspberrypi/linux
 
   # Load default raspberry kernel configuration
   make -C $R/tmp/linux ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- bcm2709_defconfig
