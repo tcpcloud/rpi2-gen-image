@@ -16,11 +16,11 @@ if [ "$BUILD_KERNEL" = true ] ; then
   make -C $R/usr/local/src/linux -j$(grep -c processor /proc/cpuinfo) ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- zImage modules dtbs
 
   # Install kernel modules
-  make -C $R/usr/local/src/linux ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- INSTALL_MOD_PATH=../.. modules_install
+  make -C $R/usr/local/src/linux ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- INSTALL_MOD_PATH=../../../.. modules_install
 
   # Install kernel headers
   if [ "$KERNEL_HEADERS" = true ]; then
-    make -C $R/usr/local/src/linux ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- INSTALL_HDR_PATH=../../usr headers_install
+    make -C $R/usr/local/src/linux ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- INSTALL_HDR_PATH=../../../../usr headers_install
   fi
 
   # Copy and rename compiled kernel to boot directory
