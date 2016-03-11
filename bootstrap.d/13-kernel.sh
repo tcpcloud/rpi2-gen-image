@@ -7,16 +7,21 @@
 # Fetch and build latest raspberry kernel
 if [ "$BUILD_KERNEL" = true ] ; then
   # Fetch current raspberrypi kernel sources
-  git -C $R/tmp clone --depth=1 https://github.com/raspberrypi/linux
+  git -C $R/tmp clone --depth=1 --branch=${KERNEL_BRANCH} https://github.com/raspberrypi/linux
 
   # Load default raspberry kernel configuration
   make -C $R/tmp/linux ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- bcm2709_defconfig
 
   # Cross compile kernel and modules
-  make -C $R/tmp/linux -j 8 ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- zImage modules dtbs
+  make -C $R/tmp/linux -j$(grep -c processor /proc/cpuinfo) ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- zImage modules dtbs
 
   # Install kernel modules
   make -C $R/tmp/linux ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- INSTALL_MOD_PATH=../.. modules_install
+
+  # Install kernel headers
+  if [ "$KERNEL_HEADERS" = true ]; then
+    make -C $R/tmp/linux ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- INSTALL_HDR_PATH=../../usr headers_install
+  fi
 
   # Copy and rename compiled kernel to boot directory
   mkdir $R/boot/firmware/
@@ -27,6 +32,9 @@ if [ "$BUILD_KERNEL" = true ] ; then
   cp $R/tmp/linux/arch/arm/boot/dts/*.dtb $R/boot/firmware/
   cp $R/tmp/linux/arch/arm/boot/dts/overlays/*.dtb* $R/boot/firmware/overlays/
   cp $R/tmp/linux/arch/arm/boot/dts/overlays/README $R/boot/firmware/overlays/
+
+  # Cleanup
+  rm -rf $R/tmp/linux
 
   # Install raspberry bootloader and flash-kernel
   chroot_exec apt-get -qq -y --no-install-recommends install raspberrypi-bootloader-nokernel
