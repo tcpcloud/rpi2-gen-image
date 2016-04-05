@@ -3,7 +3,7 @@ Description=Vrouter agent
 
 [Service]
 EnvironmentFile=/etc/default/vrouter-agent
-ExecStart=/usr/local/bin/opencontrail-kubelet-plugin "$DAEMON_ARGS"
+ExecStart=/usr/bin/contrail-vrouter-agent "$DAEMON_ARGS"
 Restart=always
 
 [Install]
