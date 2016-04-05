@@ -10,6 +10,9 @@ chroot_exec wget https://downloads.hypriot.com/docker-hypriot_1.9.1-1_armhf.deb 
 wget -O $R/usr/local/bin/kubelet http://apt.tcpcloud.eu/tmp/k8s_binaries_arm/v1.1.1/kubelet
 wget -O $R/usr/local/bin/kube-proxy http://apt.tcpcloud.eu/tmp/k8s_binaries_arm/v1.1.1/kube-proxy
 
+chroot_exec chmod +x $R/usr/local/bin/kubelet
+chroot_exec chmod +x $R/usr/local/bin/kube-proxy
+
 chroot_exec pip install opencontrail-kubelet
 #chroot_exec ln -s /usr/local/bin/opencontrail-kubelet-plugin /usr/libexec/kubernetes/kubelet-plugins/net/exec/opencontrail/opencontrail
 chroot_exec ln -s /lib/ld-linux-armhf.so.3 /lib/ld-linux.so.3

@@ -30,7 +30,7 @@ fi
 cat <<EOM >$R/etc/network/interfaces
 # Debian switched to systemd-networkd configuration files.
 # please configure your networks in '/etc/systemd/network/'
-source /etc/interfaces.d/*.conf
+source /etc/network/interfaces.d/*
 EOM
 
 if [ "$ENABLE_DHCP" = true ] ; then
